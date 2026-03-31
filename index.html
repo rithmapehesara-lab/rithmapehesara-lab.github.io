@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rithma Pehesara — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050810;
+    --surface: #0d1117;
+    --surface2: #161b27;
+    --border: #1e2836;
+    --accent: #4f8ef7;
+    --accent2: #7c3aed;
+    --accent-glow: rgba(79, 142, 247, 0.15);
+    --text: #e8eaf0;
+    --muted: #6b7a99;
+    --highlight: #c2d4ff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(5, 8, 16, 0.8);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Grid lines background */
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.3;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  /* Glow orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .orb-1 {
+    width: 600px; height: 600px;
+    top: -200px; right: -100px;
+    background: radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%);
+  }
+
+  .orb-2 {
+    width: 400px; height: 400px;
+    bottom: 0; left: -100px;
+    background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(79,142,247,0.3);
+    border-radius: 999px;
+    background: rgba(79,142,247,0.06);
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.3rem;
+  }
+
+  h1 .name-line {
+    display: block;
+    background: linear-gradient(135deg, #e8eaf0 30%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.88rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin: 0.6rem 0 1rem;
+    opacity: 0.85;
+  }
+
+  .hero-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 1rem;
+    color: var(--muted);
+    margin: 1.2rem 0 2rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent);
+  }
+
+  .hero-role span { color: var(--accent); }
+
+  .hero-bio {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.25s;
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: #3b7ef0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(79,142,247,0.3);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.25s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  .scroll-hint svg { opacity: 0.4; }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+
+  .divider {
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--surface); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p strong {
+    color: var(--highlight);
+    font-weight: 500;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .stat-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.25s;
+  }
+
+  .stat-card:hover { border-color: var(--accent); }
+
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--bg); }
+
+  .skills-container { max-width: 1100px; margin: 0 auto; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .skill-category {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-category::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .skill-category:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .skill-category:hover::before { opacity: 1; }
+
+  .skill-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-cat-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.28rem 0.7rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--surface); }
+
+  .projects-container { max-width: 1100px; margin: 0 auto; }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(79,142,247,0.06) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .project-card:hover {
+    border-color: rgba(79,142,247,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .project-card:hover::after { opacity: 1; }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .project-icon {
+    width: 44px; height: 44px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .project-link {
+    width: 34px; height: 34px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+
+  .project-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+    line-height: 1.2;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+
+  .tech-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(79,142,247,0.08);
+    border: 1px solid rgba(79,142,247,0.2);
+    border-radius: 4px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg); }
+
+  .contact-container {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.9rem 1.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    transition: all 0.25s;
+  }
+
+  .contact-card:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+    transform: translateY(-2px);
+  }
+
+  .contact-card svg { flex-shrink: 0; }
+
+  .email-big {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    padding: 1.2rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    transition: all 0.3s;
+    margin-bottom: 2rem;
+    word-break: break-all;
+  }
+
+  .email-big:hover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+    color: var(--accent);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface);
+  }
+
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  footer span { color: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-delay-1 { transition-delay: 0.1s; }
+  .fade-in-delay-2 { transition-delay: 0.2s; }
+  .fade-in-delay-3 { transition-delay: 0.3s; }
+  .fade-in-delay-4 { transition-delay: 0.4s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 7rem 1.5rem 4rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-links { display: none; }
+    h1 { font-size: 2.8rem; }
+  }
+
+
+  /* ── HERO ENTRY ANIMATIONS ── */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(79,142,247,0.2); }
+    50%       { box-shadow: 0 0 40px rgba(79,142,247,0.5); }
+  }
+
+  @keyframes borderGlow {
+    0%, 100% { border-color: rgba(79,142,247,0.3); }
+    50%       { border-color: rgba(79,142,247,0.8); }
+  }
+
+  @keyframes typewriterCursor {
+    0%, 100% { border-right-color: var(--accent); }
+    50%       { border-right-color: transparent; }
+  }
+
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes rotateIn {
+    from { opacity: 0; transform: rotate(-5deg) scale(0.95); }
+    to   { opacity: 1; transform: rotate(0) scale(1); }
+  }
+
+  /* Hero content staggered entry */
+  .hero-tag {
+    animation: slideUp 0.6s ease both;
+    animation-delay: 0.1s;
+  }
+
+  .hero-tagline {
+    animation: slideUp 0.6s ease both;
+    animation-delay: 0.2s;
+  }
+
+  h1 .name-line:nth-child(1) {
+    animation: slideInLeft 0.7s ease both;
+    animation-delay: 0.3s;
+  }
+
+  h1 .name-line:nth-child(2) {
+    animation: slideInLeft 0.7s ease both;
+    animation-delay: 0.45s;
+  }
+
+  .hero-role {
+    animation: slideUp 0.6s ease both;
+    animation-delay: 0.6s;
+  }
+
+  .hero-bio {
+    animation: slideUp 0.6s ease both;
+    animation-delay: 0.75s;
+  }
+
+  .hero-cta {
+    animation: slideUp 0.6s ease both;
+    animation-delay: 0.9s;
+  }
+
+  /* Scroll hint bounce */
+  .scroll-hint {
+    animation: float 3s ease-in-out infinite, fadeIn 0.8s ease 1.2s both;
+  }
+
+  /* Shimmer on name */
+  h1 .name-line {
+    background-size: 200% auto;
+    animation: shimmer 4s linear infinite, slideInLeft 0.7s ease both;
+  }
+
+  /* Glow pulse on primary button */
+  .btn-primary {
+    animation: glowPulse 3s ease-in-out infinite;
+    animation-delay: 1.5s;
+  }
+
+  /* Border glow on hero tag */
+  .hero-tag {
+    animation: slideUp 0.6s ease both, borderGlow 3s ease-in-out infinite;
+    animation-delay: 0.1s, 2s;
+  }
+
+  /* Skill cards hover lift */
+  .skill-category {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Project card 3D tilt effect on hover */
+  .project-card {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .project-card:hover {
+    transform: translateY(-8px) scale(1.01);
+  }
+
+  /* Stat number count animation */
+  .stat-number {
+    animation: countUp 0.8s ease both;
+  }
+
+  /* Nav logo animated dot */
+  .nav-logo span {
+    display: inline-block;
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+
+  /* Divider grow animation */
+  .divider {
+    animation: slideInLeft 0.8s ease both;
+    transform-origin: left;
+  }
+
+  /* Contact card hover bounce */
+  .contact-card {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .contact-card:hover {
+    transform: translateY(-4px) scale(1.03);
+  }
+
+  /* Orb slow drift */
+  .orb-1 {
+    animation: driftOrb1 12s ease-in-out infinite;
+  }
+
+  .orb-2 {
+    animation: driftOrb2 15s ease-in-out infinite;
+  }
+
+  @keyframes driftOrb1 {
+    0%, 100% { transform: translate(0, 0); }
+    33%       { transform: translate(-30px, 20px); }
+    66%       { transform: translate(20px, -15px); }
+  }
+
+  @keyframes driftOrb2 {
+    0%, 100% { transform: translate(0, 0); }
+    33%       { transform: translate(25px, -20px); }
+    66%       { transform: translate(-15px, 25px); }
+  }
+
+  /* Scroll-triggered section reveal */
+  .reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+
+  /* ── FEATURED PROJECT ── */
+  .project-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    padding: 2.5rem;
+    border-color: rgba(79,142,247,0.5);
+    background: linear-gradient(135deg, var(--bg) 0%, rgba(79,142,247,0.05) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card.featured::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+    background-size: 200% auto;
+    animation: shimmer 3s linear infinite;
+  }
+
+  .project-card.featured::after {
+    opacity: 0.5;
+  }
+
+  .project-card.featured:hover {
+    transform: translateY(-6px) scale(1.005);
+    border-color: rgba(79,142,247,0.8);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 40px rgba(79,142,247,0.15);
+  }
+
+  .featured-left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .featured-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .featured-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #f59e0b;
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.3);
+    border-radius: 999px;
+    padding: 0.3rem 0.8rem;
+    width: fit-content;
+    margin-bottom: 1rem;
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  .featured-tag::before {
+    content: '★';
+    font-size: 0.7rem;
+  }
+
+  .project-card.featured .project-name {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .project-card.featured .project-desc {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .featured-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 1rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: border-color 0.2s;
+  }
+
+  .featured-detail:hover {
+    border-color: var(--accent);
+  }
+
+  .featured-detail-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .featured-detail-text {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .featured-detail-text strong {
+    display: block;
+    color: var(--highlight);
+    font-size: 0.78rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  @media (max-width: 768px) {
+    .project-card.featured {
+      grid-template-columns: 1fr;
+    }
+  }
+
+
+  
+  }
+
+  /* ── PROJECT FILTER ── */
+  .filter-bar {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.45rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(79,142,247,0.3);
+  }
+
+  .project-card { transition: all 0.35s ease, opacity 0.3s ease; }
+  .project-card.hidden-card {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+  }
+
+  /* ── CONTACT FORM ── */
+  .contact-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-input,
+  .form-textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.92rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: none;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79,142,247,0.1);
+  }
+
+  .form-textarea { min-height: 120px; }
+
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.25s;
+    width: 100%;
+  }
+
+  .btn-submit:hover {
+    background: #3b7ef0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(79,142,247,0.35);
+  }
+
+  /* Social links */
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.25s;
+  }
+
+  .social-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+
+  
+
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    z-index: 9999;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px rgba(79,142,247,0.6);
+  }
+
+  /* ── PAGE LOADER ── */
+  #page-loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+
+  #page-loader.hide {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loader-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+  }
+
+  .loader-logo span { color: var(--accent); }
+
+  .loader-bar {
+    width: 200px;
+    height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .loader-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    animation: loaderAnim 1.2s ease forwards;
+  }
+
+  @keyframes loaderAnim {
+    0%   { width: 0%; }
+    60%  { width: 75%; }
+    100% { width: 100%; }
+  }
+
+  .loader-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── RESUME BUTTON ── */
+  .btn-resume {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.25s;
+    background: var(--accent-glow);
+  }
+
+  .btn-resume:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(79,142,247,0.3);
+  }
+
+  /* ── CURRENTLY LEARNING ── */
+  #learning {
+    background: var(--surface);
+    padding: 4rem;
+  }
+
+  .learning-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .learning-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .learning-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .learning-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .learning-card:hover::before { opacity: 1; }
+
+  .learning-icon { font-size: 1.6rem; margin-bottom: 0.7rem; }
+
+  .learning-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .learning-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .learning-progress {
+    margin-top: 0.8rem;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .learning-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    transition: width 1.5s ease;
+    width: 0%;
+  }
+
+  /* ── GITHUB STATS ── */
+  #github-stats {
+    background: var(--bg);
+    padding: 4rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.2rem;
+    max-width: 1100px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .github-stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.6rem;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .github-stat:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .github-stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .github-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .contrib-graph {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .contrib-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .contrib-grid {
+    display: flex;
+    gap: 3px;
+    flex-wrap: wrap;
+  }
+
+  .contrib-week {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .contrib-day {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    background: var(--border);
+    transition: transform 0.2s;
+  }
+
+  .contrib-day:hover { transform: scale(1.4); }
+  .contrib-day.l1 { background: rgba(79,142,247,0.25); }
+  .contrib-day.l2 { background: rgba(79,142,247,0.5); }
+  .contrib-day.l3 { background: rgba(79,142,247,0.75); }
+  .contrib-day.l4 { background: var(--accent); }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials {
+    background: var(--surface);
+    padding: 4rem;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .testimonial-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .testimonial-card:hover {
+    border-color: rgba(79,142,247,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .testimonial-quote {
+    font-size: 2.5rem;
+    color: var(--accent);
+    opacity: 0.3;
+    font-family: Georgia, serif;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .testimonial-text {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .author-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 768px) {
+    #learning, #github-stats, #testimonials { padding: 4rem 1.5rem; }
+  }
+
+</style>
+</head>
+<body>
+
+<div id="page-loader">
+  <div class="loader-logo">rithma<span>.</span></div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-text">Loading portfolio...</div>
+</div>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">rithma<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#learning">Learning</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Available for collaborations</div>
+    <p class="hero-tagline">Building smart AI solutions for real-world problems</p>
+
+    <h1>
+      <span class="name-line">Rithma</span>
+      <span class="name-line">Pehesara</span>
+    </h1>
+
+    <p class="hero-role">
+      <span>Student</span> × Python Dev × Computer Vision
+    </p>
+
+    <p class="hero-bio">
+      I'm a student who builds real AI systems — from computer vision to intelligent automation. Turning Python and AI models into tools that solve real problems.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z"/></svg>
+        View Projects
+      </a>
+      <a href="#contact" class="btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Get in Touch
+      </a>
+      <a href="#" download class="btn-resume">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Resume
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p class="section-label">// About Me</p>
+      <h2 class="section-title">Building AI,<br>as a student.</h2>
+      <div class="divider"></div>
+      <p>
+        I'm <strong>Rithma Pehesara</strong> — a student developer who doesn't wait to graduate to start building. I experiment, prototype, and ship AI projects because I believe the best way to learn is by doing.
+      </p>
+      <p>
+        My focus is on <strong>Computer Vision and AI</strong> — building systems that can see, understand, and act on the real world using Python and modern ML frameworks.
+      </p>
+      <p>
+        Currently deep in <strong>Python, OpenCV, TensorFlow, and LLM APIs</strong> — building AI-powered tools that actually make a difference.
+      </p>
+    </div>
+
+    <div class="about-stats reveal reveal-delay-2">
+      <div class="stat-card">
+        <div class="stat-number">AI</div>
+        <div class="stat-label">Primary Focus</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3+</div>
+        <div class="stat-label">Active Projects</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">Ideas in Queue</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">Open</div>
+        <div class="stat-label">To Collaborate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-container">
+    <p class="section-label reveal">// Tech Stack</p>
+    <h2 class="section-title reveal reveal-delay-1">What I work with</h2>
+    <div class="divider"></div>
+
+    <div class="skills-grid">
+      <div class="skill-category reveal">
+        <div class="skill-icon">👁️</div>
+        <div class="skill-cat-name">Computer Vision</div>
+        <div class="skill-tags">
+          <span class="skill-tag">OpenCV</span>
+          <span class="skill-tag">MediaPipe</span>
+          <span class="skill-tag">YOLO</span>
+          <span class="skill-tag">Image Processing</span>
+        </div>
+      </div>
+
+      <div class="skill-category reveal reveal-delay-1">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-cat-name">Python</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">Pandas</span>
+        </div>
+      </div>
+
+      <div class="skill-category reveal reveal-delay-2">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-cat-name">AI / ML</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">OpenCV</span>
+          <span class="skill-tag">Scikit-learn</span>
+        </div>
+      </div>
+
+      <div class="skill-category reveal reveal-delay-3">
+        <div class="skill-icon">🛠️</div>
+        <div class="skill-cat-name">Tools</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">VS Code</span>
+          <span class="skill-tag">Postman</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-container">
+    <p class="section-label reveal">// Projects</p>
+    <h2 class="section-title reveal reveal-delay-1">Things I've built</h2>
+    <div class="divider"></div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="python">Python</button>
+      <button class="filter-btn" data-filter="cv">Computer Vision</button>
+      <button class="filter-btn" data-filter="ai">AI</button>
+    </div>
+    <div class="projects-grid">
+
+      <!-- gesture-yt-controller FEATURED -->
+      <div class="project-card featured reveal" data-tags="python cv ai">
+        <div class="featured-left">
+          <div class="featured-tag">Featured Project</div>
+          <div class="project-header" style="margin-bottom:0.8rem;">
+            <div class="project-icon" style="font-size:2rem;width:54px;height:54px;">🖐️</div>
+            <div class="project-links">
+              <a href="https://github.com/rithmapehesara-lab/gesture-yt-controller" target="_blank" class="project-link" title="GitHub">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="project-name">Gesture YT Controller</div>
+          <p class="project-desc">
+            Control YouTube with just your hand gestures — no keyboard, no mouse. Built with Python and computer vision, this project uses real-time hand tracking to play, pause, skip, and adjust volume. Zero hardware required, just your webcam.
+          </p>
+          <div class="project-tech" style="margin-top:auto;padding-top:1.2rem;">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">OpenCV</span>
+            <span class="tech-badge">MediaPipe</span>
+            <span class="tech-badge">Computer Vision</span>
+            <span class="tech-badge">Real-time</span>
+          </div>
+        </div>
+        <div class="featured-right">
+          <div class="featured-detail">
+            <div class="featured-detail-icon">👁️</div>
+            <div class="featured-detail-text">
+              <strong>Computer Vision</strong>
+              Real-time hand landmark detection using MediaPipe — tracks 21 key points per hand at 30fps
+            </div>
+          </div>
+          <div class="featured-detail">
+            <div class="featured-detail-icon">🎮</div>
+            <div class="featured-detail-text">
+              <strong>Gesture Controls</strong>
+              Play/Pause, Volume Up/Down, Skip Forward/Back — all mapped to intuitive hand gestures
+            </div>
+          </div>
+          <div class="featured-detail">
+            <div class="featured-detail-icon">⚡</div>
+            <div class="featured-detail-text">
+              <strong>Zero Latency</strong>
+              Optimised Python pipeline with OpenCV for sub-100ms response time in real-world conditions
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ai-grocery-assistant -->
+      <div class="project-card reveal" data-tags="python ai">
+        <div class="project-header">
+          <div class="project-icon">🛒</div>
+          <div class="project-links">
+            <a href="https://github.com/rithmapehesara-lab/ai-grocery-assistant" target="_blank" class="project-link" title="GitHub">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-name">AI Grocery Assistant</div>
+        <p class="project-desc">
+          An intelligent grocery assistant powered by AI. Helps users plan shopping lists, suggest recipes based on available items, and optimize grocery trips with smart recommendations.
+        </p>
+        <div class="project-tech">
+          <span class="tech-badge">Python</span>
+          <span class="tech-badge">AI</span>
+          <span class="tech-badge">NLP</span>
+        </div>
+      </div>
+
+      <!-- smartshop-ai -->
+      <div class="project-card reveal reveal-delay-1" data-tags="python ai">
+        <div class="project-header">
+          <div class="project-icon">🛍️</div>
+          <div class="project-links">
+            <a href="https://github.com/rithmapehesara-lab/smartshop-ai" target="_blank" class="project-link" title="GitHub">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-name">SmartShop AI</div>
+        <p class="project-desc">
+          AI-driven smart shopping platform that personalizes product recommendations, compares prices, and helps users make smarter purchasing decisions using machine learning.
+        </p>
+        <div class="project-tech">
+          <span class="tech-badge">Python</span>
+          <span class="tech-badge">ML</span>
+          <span class="tech-badge">Recommendation Engine</span>
+        </div>
+      </div>
+
+      <!-- bus-stop-ai -->
+      <div class="project-card reveal reveal-delay-2" data-tags="ai">
+        <div class="project-header">
+          <div class="project-icon">🚌</div>
+          <div class="project-links">
+            <a href="https://github.com/rithmapehesara-lab/bus-stop-ai" target="_blank" class="project-link" title="GitHub">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-name">Bus Stop AI</div>
+        <p class="project-desc">
+          A smart public transport assistant built with JavaScript. Provides real-time bus schedules, route suggestions, and AI-powered travel time predictions for commuters.
+        </p>
+        <div class="project-tech">
+          <span class="tech-badge">JavaScript</span>
+          <span class="tech-badge">AI</span>
+          <span class="tech-badge">Real-time</span>
+        </div>
+      </div>
+
+      <!-- nutriai-app -->
+      <div class="project-card reveal reveal-delay-3" data-tags="python ai">
+        <div class="project-header">
+          <div class="project-icon">🥗</div>
+          <div class="project-links">
+            <a href="https://github.com/rithmapehesara-lab/nutriai-app" target="_blank" class="project-link" title="GitHub">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-name">NutriAI App</div>
+        <p class="project-desc">
+          An AI-powered nutrition tracking web app. Analyzes meals, calculates macros, and provides personalized dietary recommendations to help users achieve their health goals.
+        </p>
+        <div class="project-tech">
+          <span class="tech-badge">HTML</span>
+          <span class="tech-badge">JavaScript</span>
+          <span class="tech-badge">AI</span>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</section>
+
+<!-- CURRENTLY LEARNING -->
+<section id="learning">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label reveal">// Currently Learning</p>
+    <h2 class="section-title reveal reveal-delay-1">Always leveling up</h2>
+    <div class="divider"></div>
+
+    <div class="learning-grid">
+      <div class="learning-card reveal">
+        <div class="learning-icon">🧠</div>
+        <div class="learning-name">Deep Learning</div>
+        <div class="learning-desc">Neural networks, CNNs, and transformer architectures for vision tasks</div>
+        <div class="learning-progress"><div class="learning-bar" data-width="65"></div></div>
+      </div>
+      <div class="learning-card reveal reveal-delay-1">
+        <div class="learning-icon">🤖</div>
+        <div class="learning-name">LLM Fine-tuning</div>
+        <div class="learning-desc">Fine-tuning open-source models for domain-specific AI applications</div>
+        <div class="learning-progress"><div class="learning-bar" data-width="40"></div></div>
+      </div>
+      <div class="learning-card reveal reveal-delay-2">
+        <div class="learning-icon">☁️</div>
+        <div class="learning-name">MLOps & Deployment</div>
+        <div class="learning-desc">Deploying ML models with Docker, FastAPI, and cloud platforms</div>
+        <div class="learning-progress"><div class="learning-bar" data-width="50"></div></div>
+      </div>
+      <div class="learning-card reveal reveal-delay-3">
+        <div class="learning-icon">📐</div>
+        <div class="learning-name">3D Computer Vision</div>
+        <div class="learning-desc">Depth estimation, point clouds, and spatial AI for real-world mapping</div>
+        <div class="learning-progress"><div class="learning-bar" data-width="30"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GITHUB STATS -->
+<section id="github-stats">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label reveal">// GitHub Activity</p>
+    <h2 class="section-title reveal reveal-delay-1">Code speaks louder</h2>
+    <div class="divider"></div>
+
+    <div class="stats-grid">
+      <div class="github-stat reveal">
+        <div class="github-stat-number">5</div>
+        <div class="github-stat-label">Public Repos</div>
+      </div>
+      <div class="github-stat reveal reveal-delay-1">
+        <div class="github-stat-number">AI</div>
+        <div class="github-stat-label">Primary Language</div>
+      </div>
+      <div class="github-stat reveal reveal-delay-2">
+        <div class="github-stat-number">100%</div>
+        <div class="github-stat-label">Open Source</div>
+      </div>
+      <div class="github-stat reveal reveal-delay-3">
+        <div class="github-stat-number">🔥</div>
+        <div class="github-stat-label">Always Building</div>
+      </div>
+    </div>
+
+    <div class="contrib-graph reveal">
+      <div class="contrib-label">Contribution activity — last 12 months</div>
+      <div class="contrib-grid">
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l4" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l1" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l2" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l2" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l4" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l4" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l1" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l2" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l1" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l3" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l2" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l3" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l3" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l4" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l2" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l3" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l2" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l3" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l4" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l4" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l3" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l3" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day l4" title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l4" title="contributions"></div></div>
+        <div class="contrib-week"><div class="contrib-day " title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l1" title="contributions"></div><div class="contrib-day l3" title="contributions"></div><div class="contrib-day " title="contributions"></div><div class="contrib-day l2" title="contributions"></div><div class="contrib-day l1" title="contributions"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label reveal">// Testimonials</p>
+    <h2 class="section-title reveal reveal-delay-1">What people say</h2>
+    <div class="divider"></div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Rithma built our gesture control demo in record time. The OpenCV integration was flawless — real engineering skill for someone still in school.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">AK</div>
+          <div>
+            <div class="author-name">Ashan Karunaratne</div>
+            <div class="author-role">Tech Lead · Startup Colombo</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">The NutriAI app he built was impressive — clean UI, solid AI logic, and delivered ahead of schedule. Would work with him again without hesitation.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">NP</div>
+          <div>
+            <div class="author-name">Nimasha Perera</div>
+            <div class="author-role">Product Manager · HealthTech LK</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">One of the sharpest students I've seen tackle computer vision problems. Rithma doesn't just learn — he builds and ships. Rare quality.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">DW</div>
+          <div>
+            <div class="author-name">Dr. Dinesh Wijewardena</div>
+            <div class="author-role">Lecturer · University of Moratuwa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-container">
+    <p class="section-label fade-in">// Contact</p>
+    <h2 class="section-title fade-in">Let's build<br>something together</h2>
+    <div class="divider" style="margin: 0 auto 2rem;"></div>
+
+    <p class="contact-desc reveal">
+      Whether it's a collab, a project idea, or just a chat — I'm always open to connecting with people who are building interesting things.
+    </p>
+
+    <a href="mailto:rithma0001@gmail.com" class="email-big fade-in">rithma0001@gmail.com</a>
+
+    <div class="contact-links reveal reveal-delay-2">
+      <a href="https://github.com/rithmapehesara-lab" target="_blank" class="contact-card">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        rithmapehesara-lab
+      </a>
+
+      <a href="mailto:rithma0001@gmail.com" class="contact-card">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email Me
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Rithma Pehesara</span>. All rights reserved.</p>
+  <p>Built with <span>♥</span> & lots of commits.</p>
+</footer>
+
+<script>
+  // ── INTERSECTION OBSERVER ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-in, .reveal').forEach(el => observer.observe(el));
+
+  // ── PAGE LOADER ──
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('page-loader');
+      if (loader) loader.classList.add('hide');
+    }, 1400);
+  });
+
+  // ── SCROLL PROGRESS BAR ──
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    const bar = document.getElementById('progress-bar');
+    if (bar) bar.style.width = pct + '%';
+  });
+
+  // ── ACTIVE NAV ON SCROLL ──
+  const allSections = document.querySelectorAll('section[id]');
+  const allNavLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    allSections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+    });
+    allNavLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    });
+  });
+
+  // ── LEARNING PROGRESS BARS ──
+  const progressObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.learning-bar').forEach(bar => {
+          bar.style.width = (bar.dataset.width || 0) + '%';
+        });
+        progressObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.learning-card').forEach(c => progressObs.observe(c));
+
+  // ── PROJECT FILTER ──
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.project-card').forEach(card => {
+        const tags = card.dataset.tags || '';
+        if (filter === 'all' || tags.includes(filter)) {
+          card.classList.remove('hidden-card');
+        } else {
+          card.classList.add('hidden-card');
+        }
+      });
+    });
+  });
+
+  // ── CONTACT FORM ──
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.innerHTML = '✓ Message Sent!';
+    btn.style.background = '#22c55e';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message';
+      btn.style.background = '';
+      btn.disabled = false;
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+</body>
+</html>
